@@ -81,7 +81,7 @@ include "koneksi.php";
     <section id="hero" class="text-center p-5 bg-danger-subtle text-sm-start">
       <div class="container">
         <div class="d-sm-flex flex-sm-row-reverse align-items-center">
-          <img src="img/banner.jpg" class="img-fluid" width="300" />
+          <img src="img/udinus.jpeg" class="img-fluid" width="300" />
           <div>
             <h1 class="fw-bold display-4">
               Create Memories, Save Memories, Everyday
@@ -138,18 +138,27 @@ include "koneksi.php";
         <h1 class="fw-bold display-4 pb-3">gallery</h1>
         <div id="carouselExample" class="carousel slide">
           <div class="carousel-inner">
+          <?php
+      $sql = "SELECT * FROM gallery ORDER BY tanggal DESC";
+      $hasil = $conn->query($sql); 
+
+      while($row = $hasil->fetch_assoc()){
+      ?>
             <div class="carousel-item active">
-              <img src="img/kelompok.jpeg" class="d-block w-100" alt="..." />
+            <?php
+                                if ($row["gambar"] != '') {
+                                    if (file_exists('img/' . $row["gambar"] . '')) {
+                                ?>
+                                        <img src="img/<?= $row["gambar"] ?>" class="d-block w-100">
+                                <?php
+                                    }
+                                }
+                                ?>
             </div>
-            <div class="carousel-item">
-              <img src="img/perpustakaan.jpeg" class="d-block w-100" alt="..." />
-            </div>
-            <div class="carousel-item">
-              <img src="img/taman.jpeg" class="d-block w-100" alt="..." />
-            </div>
-            <div class="carousel-item">
-              <img src="img/ruanglab.jpeg" class="d-block w-100" alt="..." />
-            </div>
+            <?php
+      }
+      ?> 
+            
           </div>
           <button
             class="carousel-control-prev"
